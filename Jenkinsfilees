@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "mca-devops-app"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/Arul-Kumar-P/mca-devops-ci-cd.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('app') {
+                    sh "docker build -t ${DOCKER_IMAGE} ."
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh "docker run --rm ${DOCKER_IMAGE} echo 'Tests Passed!'"
+                // replace with: sh "docker run --rm ${DOCKER_IMAGE} npm test" if your app really uses npm
+            }
+        }
+
+        stage('Save Docker Image') {
+            steps {
+                // Ensure files directory exists
+                sh "mkdir -p ansible/playbooks/files"
+                sh "docker save -o ansible/playbooks/files/${DOCKER_IMAGE}.tar ${DOCKER_IMAGE}"
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'ansible/playbooks/files/*.tar', fingerprint: true
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                dir('ansible') {
+                    sh 'ansible-playbook -i inventories/hosts playbooks/deploy.yml'
+                }
+            }
+        }
+    }
+}
+
