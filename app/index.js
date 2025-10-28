@@ -3,19 +3,19 @@ const chalk = require("chalk");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Product list with images and INR prices
+// Reliable product list with visible image URLs
 const products = [
   {
     id: 1,
     name: "MacBook Pro",
     price: "₹1,49,990",
-    image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp14-silver-select-202310?wid=940&hei=1112&fmt=png-alpha&.v=1697230830118"
+    image: "https://m.media-amazon.com/images/I/61vFO3R5UNL._SX679_.jpg"
   },
   {
     id: 2,
     name: "iPhone 15 Pro",
     price: "₹1,34,900",
-    image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-15-pro-blue-titanium?wid=940&hei=1112&fmt=png-alpha&.v=1692923982200"
+    image: "https://m.media-amazon.com/images/I/81CgtwSII3L._SX679_.jpg"
   },
   {
     id: 3,
@@ -27,19 +27,19 @@ const products = [
     id: 4,
     name: "Apple Watch Ultra",
     price: "₹89,900",
-    image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MQFM3ref_VW_34FR+watch-case-49-titanium-ultra_VW_34FR+watch-face-49-ocean-blue-ultra_VW_34FR_GEO_IN?wid=940&hei=1112&fmt=png-alpha&.v=1693603034252"
+    image: "https://m.media-amazon.com/images/I/91z5KuonXrL._SX679_.jpg"
   },
   {
     id: 5,
     name: "Samsung Galaxy S24 Ultra",
     price: "₹1,29,999",
-    image: "https://images.samsung.com/is/image/samsung/p6pim/in/sm-s928bzkgins/gallery/in-galaxy-s24-ultra-sm-s928-491598-sm-s928bzkgins-539848070?$684_547_PNG$"
+    image: "https://m.media-amazon.com/images/I/81vxWpPpgNL._SX679_.jpg"
   },
   {
     id: 6,
     name: "Asus ROG Gaming Laptop",
     price: "₹1,09,990",
-    image: "https://dlcdnwebimgs.asus.com/gain/a1f0f1b3-ff4b-45b1-b3b2-7d7fae5233ce/"
+    image: "https://m.media-amazon.com/images/I/71+U3O2vTFL._SX679_.jpg"
   },
   {
     id: 7,
@@ -51,13 +51,13 @@ const products = [
     id: 8,
     name: "Noise Air Buds Pro 3",
     price: "₹2,999",
-    image: "https://m.media-amazon.com/images/I/51SWk6cpbkL._SX679_.jpg"
+    image: "https://m.media-amazon.com/images/I/61VfL-aiToL._SX679_.jpg"
   },
   {
     id: 9,
     name: "OnePlus Nord CE 4",
     price: "₹25,999",
-    image: "https://m.media-amazon.com/images/I/71lVwl3q-kL._SX679_.jpg"
+    image: "https://m.media-amazon.com/images/I/61RZDb2mQxL._SX679_.jpg"
   },
   {
     id: 10,
@@ -78,22 +78,17 @@ app.get("/", (req, res) => {
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
             color: #f5f5f5;
             min-height: 100vh;
             overflow-x: hidden;
-            animation: fadeIn 2s ease-in-out;
-          }
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
           }
           header {
             text-align: center;
             padding: 50px 20px 20px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             box-shadow: 0 0 40px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px);
           }
           h1 {
             font-size: 3rem;
