@@ -1,73 +1,84 @@
 const express = require("express");
-const chalk = require("chalk");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Reliable product list with visible image URLs
+// Product list — all working images from reliable CDNs
 const products = [
   {
     id: 1,
-    name: "MacBook Pro",
-    price: "₹1,49,990",
-    image: "https://m.media-amazon.com/images/I/61vFO3R5UNL._SX679_.jpg"
+    name: "Sony WH-1000XM5 Headphones",
+    price: "₹29,990",
+    image: "https://cdn.pixabay.com/photo/2016/11/29/09/37/headphones-1868612_1280.jpg"
   },
   {
     id: 2,
-    name: "iPhone 15 Pro",
-    price: "₹1,34,900",
-    image: "https://m.media-amazon.com/images/I/81CgtwSII3L._SX679_.jpg"
+    name: "Asus ROG Gaming Laptop",
+    price: "₹1,49,999",
+    image: "https://cdn.pixabay.com/photo/2017/03/19/18/52/laptop-2158121_1280.jpg"
   },
   {
     id: 3,
-    name: "Sony WH-1000XM5 Headphones",
-    price: "₹29,990",
-    image: "https://m.media-amazon.com/images/I/61+t8sGDi-L._SX679_.jpg"
+    name: "GoPro Hero 12",
+    price: "₹48,500",
+    image: "https://cdn.pixabay.com/photo/2017/08/01/09/04/gopro-2562705_1280.jpg"
   },
   {
     id: 4,
-    name: "Apple Watch Ultra",
-    price: "₹89,900",
-    image: "https://m.media-amazon.com/images/I/91z5KuonXrL._SX679_.jpg"
+    name: "Apple iPhone 15 Pro",
+    price: "₹1,34,900",
+    image: "https://cdn.pixabay.com/photo/2015/12/09/17/12/iphone-1082240_1280.jpg"
   },
   {
     id: 5,
-    name: "Samsung Galaxy S24 Ultra",
-    price: "₹1,29,999",
-    image: "https://m.media-amazon.com/images/I/81vxWpPpgNL._SX679_.jpg"
+    name: "Samsung Galaxy Watch 6",
+    price: "₹28,999",
+    image: "https://cdn.pixabay.com/photo/2015/01/21/14/14/smart-watch-606312_1280.jpg"
   },
   {
     id: 6,
-    name: "Asus ROG Gaming Laptop",
-    price: "₹1,09,990",
-    image: "https://m.media-amazon.com/images/I/71+U3O2vTFL._SX679_.jpg"
+    name: "Apple MacBook Air M2",
+    price: "₹1,09,900",
+    image: "https://cdn.pixabay.com/photo/2014/05/02/21/50/home-office-336377_1280.jpg"
   },
   {
     id: 7,
-    name: "GoPro Hero 12",
-    price: "₹44,990",
-    image: "https://m.media-amazon.com/images/I/61lFJqW2W1L._SX679_.jpg"
+    name: "Canon EOS R50 DSLR Camera",
+    price: "₹78,999",
+    image: "https://cdn.pixabay.com/photo/2014/12/27/15/40/camera-581126_1280.jpg"
   },
   {
     id: 8,
-    name: "Noise Air Buds Pro 3",
-    price: "₹2,999",
-    image: "https://m.media-amazon.com/images/I/61VfL-aiToL._SX679_.jpg"
+    name: "Samsung 4K Smart TV 55-inch",
+    price: "₹64,999",
+    image: "https://cdn.pixabay.com/photo/2014/09/23/21/23/television-457438_1280.jpg"
   },
   {
     id: 9,
-    name: "OnePlus Nord CE 4",
-    price: "₹25,999",
-    image: "https://m.media-amazon.com/images/I/61RZDb2mQxL._SX679_.jpg"
+    name: "Bose SoundLink Bluetooth Speaker",
+    price: "₹19,500",
+    image: "https://cdn.pixabay.com/photo/2016/03/27/21/46/speaker-1284728_1280.jpg"
   },
   {
     id: 10,
-    name: "Lenovo Legion 5 Pro",
-    price: "₹1,24,999",
-    image: "https://m.media-amazon.com/images/I/61Dw5Z8LzJL._SX679_.jpg"
+    name: "Dell Inspiron Laptop",
+    price: "₹58,499",
+    image: "https://cdn.pixabay.com/photo/2017/01/22/19/20/laptop-2004498_1280.jpg"
+  },
+  {
+    id: 11,
+    name: "Apple iPad Air (2024)",
+    price: "₹59,900",
+    image: "https://cdn.pixabay.com/photo/2014/11/21/03/24/tablet-540291_1280.jpg"
+  },
+  {
+    id: 12,
+    name: "Noise ColorFit Pro 4",
+    price: "₹4,999",
+    image: "https://cdn.pixabay.com/photo/2020/04/27/06/19/smart-watch-5094900_1280.jpg"
   }
 ];
 
-// Home page
+// Homepage
 app.get("/", (req, res) => {
   res.send(`
     <html>
@@ -75,152 +86,148 @@ app.get("/", (req, res) => {
         <title>Arul Store</title>
         <style>
           @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-          * { margin: 0; padding: 0; box-sizing: border-box; }
           body {
+            margin: 0;
             font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-            color: #f5f5f5;
-            min-height: 100vh;
+            background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
+            color: #fff;
             overflow-x: hidden;
+            animation: bgmove 10s infinite alternate;
+          }
+          @keyframes bgmove {
+            from { background-position: left; }
+            to { background-position: right; }
           }
           header {
             text-align: center;
-            padding: 50px 20px 20px;
-            background: rgba(0, 0, 0, 0.75);
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-          }
-          h1 {
-            font-size: 3rem;
-            color: #00e0ff;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px #00e0ff, 0 0 30px #0077b6;
-          }
-          .nav {
-            margin-top: 20px;
-          }
-          .nav a {
-            text-decoration: none;
-            color: #00e0ff;
-            margin: 0 15px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-          }
-          .nav a:hover {
-            color: #fff;
-            transform: scale(1.1);
-          }
-          main {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 35px;
-            width: 85%;
-            margin: 60px auto;
-            padding-bottom: 60px;
-          }
-          .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            text-align: center;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(0,0,0,0.6);
-            transition: all 0.4s ease;
-          }
-          .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 0 40px rgba(0,224,255,0.3);
-          }
-          .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            background: rgba(0,0,0,0.3);
-            transition: transform 0.4s ease;
-          }
-          .card:hover img {
-            transform: scale(1.08);
-          }
-          .card h2 {
-            font-size: 1.2rem;
-            margin: 15px 0 5px;
-          }
-          .price {
-            color: #00e0ff;
+            padding: 60px 0;
+            font-size: 3em;
             font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            color: #ff3366;
+            text-shadow: 0 0 20px #ff0044, 0 0 40px #ff3399;
+            animation: glow 2s infinite alternate;
           }
-          button {
-            background: linear-gradient(90deg, #00e0ff, #0077b6);
-            border: none;
+          @keyframes glow {
+            from { text-shadow: 0 0 15px #ff0044; }
+            to { text-shadow: 0 0 35px #ff66cc; }
+          }
+          .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 40px;
+          }
+          .product {
+            width: 250px;
+            background: #111;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            position: relative;
+          }
+          .product:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(255, 50, 150, 0.7);
+          }
+          .product img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            transition: opacity 0.8s ease-in-out;
+          }
+          .product:hover img {
+            opacity: 0.85;
+          }
+          .product-info {
+            padding: 15px;
+            text-align: center;
+          }
+          .product-info h3 {
+            color: #fff;
+            font-size: 1.1em;
+          }
+          .product-info p {
+            color: #ff66cc;
+            font-weight: bold;
+            font-size: 1em;
+          }
+          .btn {
+            display: inline-block;
+            margin-top: 10px;
+            background: linear-gradient(90deg, #ff0044, #ff55aa);
             color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            cursor: pointer;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
             transition: all 0.3s ease;
           }
-          button:hover {
+          .btn:hover {
+            background: linear-gradient(90deg, #ff55aa, #ff0044);
             transform: scale(1.1);
-            box-shadow: 0 0 15px #00e0ff;
           }
           footer {
             text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 25px;
-            font-size: 0.9rem;
-            color: #aaa;
+            padding: 30px;
+            color: #999;
+            font-size: 1em;
           }
-          footer span { color: #00e0ff; }
         </style>
       </head>
       <body>
-        <header>
-          <h1>Arul Store</h1>
-          <div class="nav">
-            <a href="/">Home</a>
-            <a href="/products">Products</a>
-            <a href="/checkout">Checkout</a>
-          </div>
-        </header>
-        <main>
-          ${products.map(p => `
-            <div class="card">
-              <img src="${p.image}" alt="${p.name}">
-              <h2>${p.name}</h2>
-              <p class="price">${p.price}</p>
-              <button>Buy Now</button>
-            </div>
-          `).join('')}
-        </main>
-        <footer>
-          © 2025 <span>Arul Store</span> | All Rights Reserved
-        </footer>
+        <header>🎬 Arul Store — Feel the Cinematic Vibe 💫</header>
+        <section class="product-container">
+          ${products
+            .map(
+              (p) => `
+              <div class="product">
+                <img src="${p.image}" alt="${p.name}">
+                <div class="product-info">
+                  <h3>${p.name}</h3>
+                  <p>${p.price}</p>
+                  <a href="/checkout" class="btn">Buy Now</a>
+                </div>
+              </div>`
+            )
+            .join("")}
+        </section>
+        <footer>© 2025 Arul Store | Dark Cinematic Shopping Experience 🌌</footer>
       </body>
     </html>
   `);
 });
 
-// Products API
-app.get("/products", (req, res) => res.json(products));
-
-// Checkout Page
+// Checkout route
 app.get("/checkout", (req, res) => {
   res.send(`
     <html>
-      <body style="text-align:center; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#141e30,#243b55); color:#f5f5f5; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-        <h1 style="color:#00e0ff;">✅ Checkout Complete!</h1>
-        <p style="font-size:1.2rem;">Thank you for shopping with <strong>Arul Store</strong> 🛒</p>
-        <a href="/" style="margin-top:20px; text-decoration:none; color:white; background:#00e0ff; padding:10px 25px; border-radius:20px;">⬅ Back to Home</a>
+      <head>
+        <title>Checkout - Arul Store</title>
+        <style>
+          body {
+            background: black;
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2em;
+            animation: fadein 2s;
+          }
+          @keyframes fadein {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        </style>
+      </head>
+      <body>
+        ✅ Checkout Complete! <br><br> Thank you for shopping at <b>Arul Store</b> 💫
       </body>
     </html>
   `);
 });
 
-// Start server
-app.listen(port, "0.0.0.0", () => {
-  console.log(chalk.cyanBright(`🛍️ Arul Store running on http://localhost:${port}`));
-});
+app.listen(port, "0.0.0.0", () =>
+  console.log(`🎬 Arul Store running on port ${port}`)
+);
 
